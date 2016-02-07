@@ -1,4 +1,4 @@
-FROM photon:1.0RC
+FROM photon:1.0TP2
 
 RUN tdnf install -y python3 ; \
     tdnf install -y python3-libs ; \

@@ -9,7 +9,7 @@ env:
     init: /sbin/init
     run_opts: ""
   - image: photon
-    tag: latest
+    tag: 1.0TP2
     init: /sbin/init
     run_opts: ""
 
