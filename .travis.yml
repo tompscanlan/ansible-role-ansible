@@ -23,14 +23,11 @@ before_install:
 # within repo and within travis.
   - mv ../ansible-role-ansible ../ansible
   - sudo docker pull ${image}:${tag}
+  - sudo docker build --rm=true --file=tests/dockerfiles/${image}-${tag} -t ${image}-${tag}:local
 
 install:
   - container_id=$(mktemp)
   - sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} ${image}:${tag} "${init}" > "${container_id}"
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm apt-get install -y software-properties-common git
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm apt-add-repository -y ppa:ansible/ansible
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm apt-get update && apt-get install -y ansible
-  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm "echo -e '[defaults]\nroles_path = ../' > ansible.cfg"
 
 script:
   - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check

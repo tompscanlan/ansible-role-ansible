@@ -1,0 +1,31 @@
+FROM photon:1.0RC
+
+RUN tdnf install -y python3 ; \
+    tdnf install -y python3-libs ; \
+    tdnf install -y python3-devel ; \
+    tdnf install -y gcc ; \
+    tdnf install -y libgcc ; \
+    tdnf install -y libgcc-devel ; \
+    tdnf install -y glibc ; \
+    tdnf install -y glibc-devel ; \
+    tdnf install -y coreutils ; \
+    tdnf install -y binutils ; \
+    tdnf install -y autoconf ; \
+    tdnf install -y automake ; \
+    tdnf install -y git ; \
+    tdnf install -y tar ; \
+    tdnf install -y sed ; \
+    tdnf install -y gawk ; \
+    tdnf install -y libyaml ; \
+    tdnf install -y libyaml-devel ; \
+    tdnf install -y linux-api-headers ; \
+    tdnf install -y gzip
+
+# Install Ansible
+RUN apt-get install -y software-properties-common git
+RUN apt-add-repository -y ppa:ansible/ansible
+RUN apt-get update
+RUN apt-get install -y ansible
+
+# Install Ansible inventory file
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
