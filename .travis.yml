@@ -23,7 +23,7 @@ before_install:
 # within repo and within travis.
   - mv ../ansible-role-ansible ../ansible
   - sudo docker pull ${image}:${tag}
-  - sudo docker build --rm=true --file=tests/dockerfiles/${image}-${tag} -t ${image}-${tag}:local tests/dockerfiles
+  - sudo docker build --rm=true --file=tests/dockerfiles/${image}-${tag} -t ${image}:local .
 
 install:
   - container_id=$(mktemp)
