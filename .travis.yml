@@ -10,7 +10,7 @@ env:
     run_opts: ""
   - image: photon
     tag: 1.0TP2
-    init: /sbin/init
+    init: /usr/sbin/sshd -D
     run_opts: ""
 
 

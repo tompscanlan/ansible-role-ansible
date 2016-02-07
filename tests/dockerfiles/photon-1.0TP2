@@ -2,6 +2,7 @@ FROM photon:1.0TP2
 
 RUN tdnf install -y python3 ; \
     tdnf install -y python3-libs ; \
+    tdnf install -y openssh ; \
     tdnf install -y python3-devel ; \
     tdnf install -y gcc ; \
     tdnf install -y libgcc ; \
@@ -27,3 +28,6 @@ RUN pip3.4 install ansible
 # Install Ansible inventory file
 RUN mkdir -p /etc/ansible
 RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+
+RUN /usr/bin/ssh-keygen -A
+CMD ["/usr/sbin/sshd", "-D"]
