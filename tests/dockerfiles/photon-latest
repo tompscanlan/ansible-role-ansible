@@ -34,7 +34,8 @@ RUN pip install ansible
 
 # Install Ansible inventory file
 RUN mkdir -p /etc/ansible
-RUN echo -e "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+RUN echo "[local]" > /etc/ansible/hosts
+RUN echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 
 RUN /usr/bin/ssh-keygen -A
 CMD ["/usr/sbin/sshd", "-D"]
