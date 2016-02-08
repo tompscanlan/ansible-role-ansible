@@ -18,10 +18,6 @@ services:
   - docker
 
 before_install:
-# our repo directory structure doesn't match our role name
-# rename the cloned dir so that tests pass
-# within repo and within travis.
-  - mv ../ansible-role-ansible ../ansible
   - sudo docker pull ${image}:${tag}
   - sudo docker build --rm=true --file=tests/dockerfiles/${image}-${tag} -t ${image}:local .
 
