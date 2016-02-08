@@ -9,8 +9,8 @@ env:
     init: /sbin/init
     run_opts: ""
   - image: photon
-    tag: 1.0TP2
-    init: /usr/sbin/sshd -D
+    tag: latest
+    init:
     run_opts: ""
 
 
