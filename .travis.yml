@@ -27,11 +27,15 @@ before_install:
 
 install:
   - container_id=$(mktemp)
+  - pwd
+  - ls -al
   - sudo docker run --detach --volume=$(pwd):/etc/ansible/roles/ansible:ro ${run_opts} ${image}:local ${init} > "${container_id}"
 
 script:
   - docker ps
   - docker logs "$(cat ${container_id})"
+  - docker inspect "$(cat ${container_id})"
+  - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm find /etc/ansible
   - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/ansible-playbook /etc/ansible/roles/ansible/tests/test.yml --syntax-check
   - sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/ansible-playbook /etc/ansible/roles/ansible/tests/test.yml
 # re-run test and check for no change
